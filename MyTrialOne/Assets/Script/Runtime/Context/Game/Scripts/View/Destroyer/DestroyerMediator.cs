@@ -21,6 +21,8 @@ namespace Script.Runtime.Context.Game.Scripts.View.Destroyer
     [Inject]
     public IGameObjectModel gameObjectModel { get; set; }
 
+    private ParticleSystem _particleSystem;
+
     public override void OnRegister()
     {
       view.dispatcher.AddListener(DestroyerEvent.Destroy, OnDestroyer);
@@ -31,6 +33,7 @@ namespace Script.Runtime.Context.Game.Scripts.View.Destroyer
       CreateExplosion().Then((() =>
       {
         gameObjectModel.ObjectDestroyed();
+        Destroy(_particleSystem.gameObject, _particleSystem.main.duration);
         view.DestroyObject();
       })).Catch(exception => { Debug.LogError("Exception" + exception.Message); });
     }
@@ -43,6 +46,7 @@ namespace Script.Runtime.Context.Game.Scripts.View.Destroyer
       {
         if (handle.Status == AsyncOperationStatus.Succeeded)
         {
+          _particleSystem = handle.Result.GetComponent<ParticleSystem>();
           promise.Resolve();
         }
         else

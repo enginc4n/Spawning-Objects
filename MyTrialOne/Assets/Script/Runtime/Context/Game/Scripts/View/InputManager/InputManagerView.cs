@@ -1,6 +1,7 @@
 ﻿using strange.extensions.mediation.impl;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Script.Runtime.Context.Game.Scripts.View.InputManager
 {
