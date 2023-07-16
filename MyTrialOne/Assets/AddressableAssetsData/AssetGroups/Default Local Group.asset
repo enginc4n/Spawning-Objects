@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 4a98d2e3fa1ac57449fe25aa39f49245
+  m_SerializeEntries:
+  - m_GUID: aef0d537598ef414f9e68006d57afd01
+    m_Address: triangle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4def7ab4fa92678418bbbddff2d3a7c6
+    m_Address: square
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0c321a394385fbb4e9493622a88b7461
+    m_Address: circle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5291dc150d4915049aa45a16e73b0e37
+    m_Address: capsule
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e1b08032bec16ba4eb1ae23cbd572664
+    m_Address: explosion
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f0581530cb22d3543a6a10841d279437
+    m_Address: diamond
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 993293bcb288ff442ab9bbfd81ecb7c0, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: d8f3d040851c9084384f3de7a7dc147e, type: 2}
+    - {fileID: 11400000, guid: 6833dab1e50ed4c4885726a75c78cf14, type: 2}
