@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
-using Script.Runtime.Context.Game.Scripts.Enum;
+﻿using Script.Runtime.Context.Game.Scripts.Enum;
 using Script.Runtime.Context.Game.Scripts.Model;
 using Scripts.Runtime.Modules.Core.PromiseTool;
 using strange.extensions.mediation.impl;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.UIElements;
 
 namespace Script.Runtime.Context.Game.Scripts.View.ObjectController
 {
@@ -23,25 +21,9 @@ namespace Script.Runtime.Context.Game.Scripts.View.ObjectController
     [Inject]
     public IGameObjectModel gameObjectModel { get; set; }
 
-    private GameObject _prefab;
-
-    private List<GameObject> _createdPrefabList = new();
-
-    Vector2 minBounds, maxBounds;
-
     public override void OnRegister()
     {
       view.dispatcher.AddListener(SpawnerEvent.SpawnClick, OnSpawnClick);
-
-      dispatcher.AddListener(GameObjectEvent.ObjectDestroyed, OnObjectDestroyed);
-    }
-
-    private void OnObjectDestroyed()
-    {
-      foreach (GameObject go in _createdPrefabList)
-      {
-        Destroy(go);
-      }
     }
 
     private void OnSpawnClick()
@@ -49,8 +31,14 @@ namespace Script.Runtime.Context.Game.Scripts.View.ObjectController
       LoadObject()
         .Then(() =>
         {
-          SpawnObject().Then(() => { gameObjectModel.ObjectSpawned(); })
-            .Catch(exception => { Debug.LogError("Exception" + exception.Message); });
+          SpawnObject().Then(() =>
+            {
+              gameObjectModel.ObjectSpawned();
+            })
+            .Catch(exception =>
+            {
+              Debug.LogError("Exception" + exception.Message);
+            });
         }).Catch(exception =>
         {
           Debug.LogError("Exception" + exception.Message);
@@ -67,7 +55,6 @@ namespace Script.Runtime.Context.Game.Scripts.View.ObjectController
       {
         if (handle.Status == AsyncOperationStatus.Succeeded)
         {
-          GameObject prefab = handle.Result;
           AdjustPrefabPos(handle.Result);
           promise.Resolve();
         }
@@ -89,10 +76,8 @@ namespace Script.Runtime.Context.Game.Scripts.View.ObjectController
       {
         if (handle.Status == AsyncOperationStatus.Succeeded)
         {
-          _prefab = handle.Result;
-          _createdPrefabList.Add(_prefab);
-
-          AdjustPrefab(_prefab);
+          gameObjectModel.AddGameObjectToTheList(handle.Result);
+          AdjustPrefab(handle.Result);
           promise.Resolve();
         }
         else
@@ -103,17 +88,14 @@ namespace Script.Runtime.Context.Game.Scripts.View.ObjectController
 
     private void AdjustPrefabPos(GameObject prefab)
     {
-      InitBounds();
-      prefab.transform.position = new Vector2(Random.Range(minBounds.x + 0.5f, maxBounds.x - 0.5f),
-        Random.Range(minBounds.y + 0.5f, maxBounds.y - 0.5f));
-    }
+      Vector2 minBounds, maxBounds;
 
-    void InitBounds()
-    {
       Camera mainCamera = Camera.main;
-
       minBounds = mainCamera.ViewportToWorldPoint(new Vector2(0, 0));
       maxBounds = mainCamera.ViewportToWorldPoint(new Vector2(1, 1));
+
+      prefab.transform.position = new Vector2(Random.Range(minBounds.x + 0.5f, maxBounds.x - 0.5f),
+        Random.Range(minBounds.y + 0.5f, maxBounds.y - 0.5f));
     }
 
     private void AdjustPrefab(GameObject prefab)
@@ -129,12 +111,9 @@ namespace Script.Runtime.Context.Game.Scripts.View.ObjectController
       return Random.Range(0, view.colorList.Count);
     }
 
-
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(SpawnerEvent.SpawnClick, OnSpawnClick);
-
-      dispatcher.RemoveListener(GameObjectEvent.ObjectDestroyed, OnObjectDestroyed);
     }
   }
 }

@@ -32,10 +32,13 @@ namespace Script.Runtime.Context.Game.Scripts.View.Destroyer
     {
       CreateExplosion().Then((() =>
       {
-        gameObjectModel.ObjectDestroyed();
         Destroy(_particleSystem.gameObject, _particleSystem.main.duration);
+        gameObjectModel.ObjectDestroyed();
         view.DestroyObject();
-      })).Catch(exception => { Debug.LogError("Exception" + exception.Message); });
+      })).Catch(exception =>
+      {
+        Debug.LogError("Exception" + exception.Message);
+      });
     }
 
     IPromise CreateExplosion()

@@ -1,4 +1,5 @@
 ﻿using Script.Runtime.Context.Game.Scripts.Enum;
+using Script.Runtime.Context.Game.Scripts.Model;
 using strange.extensions.mediation.impl;
 
 namespace Script.Runtime.Context.Game.Scripts.View.MainHud
@@ -8,7 +9,8 @@ namespace Script.Runtime.Context.Game.Scripts.View.MainHud
     [Inject]
     public MainHudView view { get; set; }
 
-    private int index = 1;
+    [Inject]
+    public IGameObjectModel gameObjectModel { get; set; }
 
     public override void OnRegister()
     {
@@ -25,8 +27,7 @@ namespace Script.Runtime.Context.Game.Scripts.View.MainHud
 
     private void OnSpawned()
     {
-      view.SetStatusLabel("Object is spawned! Total Count: " + index);
-      index++;
+      view.SetStatusLabel("Object is spawned! Total Count: " + gameObjectModel.GetCount());
     }
 
     private void OnNotReady()
