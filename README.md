@@ -5,7 +5,7 @@
 
 ## ***Appendix***
 
- It's unity project to learn Adressables, StrangeIoC, and Promisses. Main idea of project is spawning objects based on their Adressables. 
+ It's a unity project to learn Adressables, StrangeIoC, and Promises. The main idea of the project is to spawn objects based on their Adressables. 
  
  *(the link is in the My Links area and links are clickable)*
 
