@@ -7,7 +7,7 @@
 
  It's a unity project to learn Adressables, StrangeIoC, and Promises. The main idea of the project is to spawn objects based on their Adressables. 
  
- You just need to type the shape name into the addressable input area and then click the ready button, after that click the spawn button if there is no error. it creates the shape with a random color and random position.Red button destroys everything in the scene.
+ You just need to type the shape name into the addressable input area and then type the object name (there is no rule for object name)click the ready button, after that click the spawn button if there is no error. it creates the shape with a random color and random position.Red button destroys everything in the scene.
  If you want to reset you can just you reset button.
 
  **Shapes**
